@@ -1,5 +1,7 @@
 <?php
-    include("connect.php")
+    include("connect.php");
+    session_start();
+    $checkpass = mysqli_query($link,'SELECT * FROM `users` WHERE `users`.`password` = '.$_SESSION["user"]["password"].'');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,14 +22,20 @@
                     <a href="#feedback"><li>Feedback</li></a>
                     <a href="#community"><li>Community</li></a>
                 </ul>
-                <div class="regbtns">
-                    <a href="/login"><div id="login">
+                <?php
+                    if (isset($_SESSION['user']) == true & $checkpass['num_rows'] > 0) {
+                        echo('<div id="user">'.$_SESSION['user']['name'].'<img src="images/usericon.png"></div>');
+                    }else{
+                        echo('<div class="regbtns">
+                        <a href="/login"><div id="login">
                         Log in
-                    </div></a>
-                    <a href="/register"><div id="register">
+                        </div></a>
+                        <a href="/register"><div id="register">
                         Register
-                    </div></a>
-                </div>
+                        </div></a>
+                        </div>');
+                    }
+                ?>
             </div>
             <img class="icon" src="images/icon.png" alt="icon">
             <div class="title">Welcome to hpowers.io</div>
