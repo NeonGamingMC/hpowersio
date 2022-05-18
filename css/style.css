@@ -52,7 +52,7 @@ body {
     text-align: center;
     line-height: 50px;
     background-color: #3345dd;
-    color: #6690ff;
+    color: #99b5ff;
     border: 3px solid #99b5ff;
     border-radius: 30px;
     font-size: 25px;
@@ -63,7 +63,7 @@ body {
     text-align: center;
     line-height: 50px;
     background-color: #45dd45;
-    color: #90ff90;
+    color: #b5ffb5;
     border: 3px solid #b5ffb5;
     border-radius: 30px;
     font-size: 20px;
@@ -86,7 +86,7 @@ a{
 }
 
 a li{
-    color: #99f;
+    color: #bbf;
 }
 
 .title{
