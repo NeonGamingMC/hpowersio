@@ -1,3 +1,8 @@
+<?php
+    session_start();
+    include("../connect.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +18,22 @@
         <form class="loginform" action="login.php" method="POST">
             <label>Username</label>
             <input type="text" name="username"><br>
+            <label>Password</label>
+            <input type="password" name="password"><br><br>
+            <button id="loginbtn">Log in</button>
         </form>
+        <div class="loginmsg">
+            <?php
+                echo($_SESSION['loginmsg']);
+                $_SESSION['loginmsg'] = ''
+            ?>
+        </div>
     </div>
+    <?php
+        $checkpass = mysqli_query($link,'SELECT * FROM `users` WHERE `users`.`password` = "'.$_SESSION["user"]["password"].'"');
+        if (mysqli_num_rows($checkpass) > 0) {
+            header("Location: .");
+        }
+    ?>
 </body>
-</  
+</html>

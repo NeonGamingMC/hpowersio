@@ -1,7 +1,7 @@
 <?php
     include("connect.php");
     session_start();
-    $checkpass = mysqli_query($link,'SELECT * FROM `users` WHERE `users`.`password` = '.$_SESSION["user"]["password"].'');
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,8 +23,9 @@
                     <a href="#community"><li>Community</li></a>
                 </ul>
                 <?php
-                    if (isset($_SESSION['user']) == true & $checkpass['num_rows'] > 0) {
-                        echo('<div id="user">'.$_SESSION['user']['name'].'<img src="images/usericon.png"></div>');
+                    $checkpass = mysqli_query($link,'SELECT * FROM `users` WHERE `users`.`password` = "'.$_SESSION["user"]["password"].'"');
+                    if (mysqli_num_rows($checkpass) > 0) {
+                        echo('<div id="user"><div class="username">'.$_SESSION['user']['name'].'</div><img src="images/usericon.png"></div>');
                     }else{
                         echo('<div class="regbtns">
                         <a href="/login"><div id="login">
@@ -40,9 +41,10 @@
             <img class="icon" src="images/icon.png" alt="icon">
             <div class="title">Welcome to hpowers.io</div>
             <div class="subtitle">...also known as H Powers</div>
-            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-            <script src="js/startupanim.js"></script>
+            
         </div>
     </header>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/startupanim.js"></script>
 </body>
 </html>
