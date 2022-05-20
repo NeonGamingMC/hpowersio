@@ -15,7 +15,7 @@
 <body>
     <div class="loginwindow">
         <h1>Log in</h1>
-        <form class="loginform" action="login.php" method="POST">
+        <form class="loginform">
             <label>Username</label>
             <input type="text" name="username"><br>
             <label>Password</label>
@@ -35,5 +35,6 @@
             header("Location: .");
         }
     ?>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>

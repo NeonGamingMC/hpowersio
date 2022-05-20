@@ -1,3 +1,8 @@
+<?php
+    include("../connect.php");
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +15,7 @@
 <body>
     <div class="registerwindow">
         <h1>Register</h1>
-        <form class="registerform" action="register.php" method="POST">
+        <form class="registerform">
             <label>Username</label>
             <input type="text" name="username"><br>
             <label>Password</label>
@@ -20,11 +25,10 @@
             <button id="registerbtn">Register</button>
         </form>
         <div class="regmsg">
-            <?php
-                echo($_SESSION['regmsg']);
-                $_SESSION['regmsg'] = ''
-            ?>
+
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/reglogajax.js"></script>
 </body>
-</  
+</html>
