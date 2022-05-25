@@ -248,3 +248,10 @@ a li:hover{
     width: 72px;
     height: 72px;
 }
+
+#game{
+    display: block;
+    width: 100%;
+    height: 97.5vh;
+    object-fit:contain;
+}

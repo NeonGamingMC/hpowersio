@@ -25,7 +25,7 @@
                 <?php
                     $checkpass = mysqli_query($link,'SELECT * FROM `users` WHERE `users`.`password` = "'.$_SESSION["user"]["password"].'"');
                     if (mysqli_num_rows($checkpass) > 0) {
-                        echo('<div id="user"><div class="username">'.$_SESSION['user']['name'].'</div><img src="images/usericon.png"></div>');
+                        echo('<div id="user"><a href="users/'.$_SESSION['user']['name'].' " style="color:#fff;"><div class="username">'.$_SESSION['user']['name'].'</div></a><img src="images/usericon.png"></div>');
                     }else{
                         echo('<div class="regbtns">
                         <a href="/login"><div id="login">

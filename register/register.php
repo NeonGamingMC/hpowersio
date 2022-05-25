@@ -7,7 +7,7 @@
     $checkuser = mysqli_query($link,'SELECT * FROM `users` WHERE `users`.`username` = "'.$un.'"');
     $checkemail = mysqli_query($link,'SELECT * FROM `users` WHERE `users`.`email` = "'.$em.'"');
     if ($un == '' || $pw == '' || $em == ''){
-        echo "Please fill all the blanks!";
+        echo json_encode("Please fill all the blanks!");
     }else{
         if (mysqli_num_rows($checkemail) < 1){
             if (mysqli_num_rows($checkuser) < 1){
@@ -30,11 +30,12 @@
     hello world
 </body>
 </html>');
+                echo json_encode("success");
             }else{
-                echo "The username is already taken!";
+                echo json_encode("The username is already taken!");
             }
         }else{
-            echo "Cannot create a second acount with same email!";
+            echo json_encode("Cannot create a second acount with same email!");
         }
     }
 ?>

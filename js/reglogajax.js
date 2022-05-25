@@ -1,8 +1,8 @@
 $("#registerbtn").click(function(e){
     e.preventDefault();
-    let un = $("input[name='username']"),
-        pw = $("input[name='password']"),
-        em = $("input[name='email']")
+    let un = $("input[name='username']").val(),
+        pw = $("input[name='password']").val(),
+        em = $("input[name='email']").val();
     $.ajax({
         type: "POST",
         url: "../register/register.php",
@@ -13,7 +13,10 @@ $("#registerbtn").click(function(e){
         },
         dataType: "json",
         success: function(data){
-            $(".regmsg").html(data)
+            $(".regmsg").html(data);
+            if (data == 'success'){
+                $(location).prop('href', '..')
+            }
         }
     })
 })
