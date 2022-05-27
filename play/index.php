@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+    <img src="../images/tileset.png" alt="grass" style="display:none;" id="tileset">
     <canvas id="game" width="1800" height="960"></canvas>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="index.js"></script>
 </body>
 </html>
