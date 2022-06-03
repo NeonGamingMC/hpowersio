@@ -1,6 +1,9 @@
 var can = document.getElementById("game")
 var ctx = can.getContext("2d")
 var floorimg = document.getElementById("tileset")
+var plrimg = document.getElementById("plrimg")
+var mouseX = new Number()
+var mouseY = new Number()
 var world = {
     width: 96,
     height: 96,
@@ -106,42 +109,106 @@ var player = {
     y: 0,
     dir: 0,
     moving: false,
-    spd: 0,
-    maxspd: 10,
-    accspd: 1,
+    spd: 10,
     data: new Array()
 }
-$.ajax({
+console.log(sessionStorage.getItem("user"))
+/*$.ajax({
     type: "POST",
-})
+    url: "getdata.php",
+    data:{
+        username: sessionStorage.getItem("user").find("name"),
+        password: sessionStorage.getItem("user").find("password")
+    },
+    dataType: "json",
+    success: function(data){
+        player.data = data
+    }
+})*/
 var loaded = 0
 floorimg.onload = function(){
     loaded += 1
 }
 var pressedkeys = new Array()
-document.addEventListener("keydown",keyd)
+document.addEventListener("keypress",keyd)
 document.addEventListener("keyup",keyu)
+can.onmousemove = function(e){
+    var offset = $("#game").offset()
+    mouseX = e.clientX - offset.left
+    mouseY = e.clientY - offset.top
+}
 
 setInterval(update,16)
 
 function update(){
     ctx.fillStyle = "rgba(0,0,0,1)"
     ctx.fillRect(0,0,1800,960)
-    for(let y = 0;y<world.width;y++){
-        for(let x = 0;x<world.height;x++){
-            ctx.drawImage(floorimg,(world.data[x+(y*world.width)]-1)%2*64,Math.floor((world.data[x+(y*world.width)]-1)/2)%2*64,64,64,x*64,y*64,64,64)
+    angle = Math.atan2(mouseY-480, mouseX-900) - Math.atan2(0, 0);
+    player.dir = angle + Math.PI/2;
+    console.log(player.dir)
+    if (pressedkeys.length > 0){
+        player.moving = true
+    }else{
+        player.moving = false
+    }
+    if (player.moving){
+        if (pressedkeys.includes("KeyW")){
+            if (pressedkeys.includes("KeyA") || pressedkeys.includes("KeyD")){
+                player.y += player.spd/1.5
+            }else{
+                player.y += player.spd
+            }
+        }
+        if (pressedkeys.includes("KeyA")){
+            if (pressedkeys.includes("KeyW") || pressedkeys.includes("KeyS")){
+                player.x += player.spd/1.5
+            }else{
+                player.x += player.spd
+            }
+        }
+        if (pressedkeys.includes("KeyS")){
+            if (pressedkeys.includes("KeyA") || pressedkeys.includes("KeyD")){
+                player.y -= player.spd/1.5
+            }else{
+                player.y -= player.spd
+            }
+        }
+        if (pressedkeys.includes("KeyD")){
+            if (pressedkeys.includes("KeyW") || pressedkeys.includes("KeyS")){
+                player.x -= player.spd/1.5
+            }else{
+                player.x -= player.spd
+            }
         }
     }
+    for(let y = 0;y<world.width;y++){
+        for(let x = 0;x<world.height;x++){
+            ctx.drawImage(floorimg,(world.data[x+(y*world.width)]-1)%2*64,Math.floor((world.data[x+(y*world.width)]-1)/2)%2*64,64,64,(x*64)+player.x+900,(y*64)+player.y+480,64,64)
+        }
+    }
+    ctx.translate(900,480)
+    ctx.rotate(player.dir)
+    ctx.drawImage(plrimg,-32,-32,64,64)
+    ctx.rotate(-player.dir)
+    ctx.translate(-900,-480)
+    ctx.beginPath()
+    ctx.arc(mouseX,mouseY,4,0,2*Math.PI)
+    ctx.fill()
+    ctx.strokeStyle = "rgba(255,255,255,1)"
+    ctx.stroke()
+    ctx.closePath()
 }
 
 function keyd(e){
-    pressedkeys.push(e.code)
+    if (!pressedkeys.includes(e.code)){
+        pressedkeys.push(e.code)
+    }
 }
 
 function keyu(e){
     for(let i = 0;i<pressedkeys.length;i++){
         if (pressedkeys[i] == e.code){
-            pressedkeys.slice(i)
+            pressedkeys.splice(i,1)
             break
         }
     }
