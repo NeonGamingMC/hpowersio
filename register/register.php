@@ -11,7 +11,9 @@
     }else{
         if (mysqli_num_rows($checkemail) < 1){
             if (mysqli_num_rows($checkuser) < 1){
-                mysqli_query($link,'INSERT INTO `users`(`username`,`password`,`email`,`dataid`) VALUES ("'.$un.'","'.$pw.'","'.$em.'",0)');
+                $dtplayer = base64_encode('{"score":0,"lvl":1,"reb":0,"pre":0}');
+                mysqli_query($link, "INSERT INTO `users`(`username`,`password`,`email`,`dataid`) VALUES ('$un','$pw','$em',0)");
+                mysqli_query($link,"INSERT INTO `plrdata`(`data`) VALUES ('$dtplayer')");
                 $_SESSION['user'] = [
                     'name' => $un,
                     'password' => $pw

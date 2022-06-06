@@ -112,19 +112,18 @@ var player = {
     spd: 10,
     data: new Array()
 }
-console.log(sessionStorage.getItem("user"))
-/*$.ajax({
-    type: "POST",
-    url: "getdata.php",
-    data:{
-        username: sessionStorage.getItem("user").find("name"),
-        password: sessionStorage.getItem("user").find("password")
-    },
-    dataType: "json",
-    success: function(data){
-        player.data = data
-    }
-})*/
+    $.ajax({
+        url: "getdata.php",
+        type: "POST",
+        data:{
+            fromGame: true
+        },
+        dataType: 'text',
+        success: function(data){
+            console.log(data)
+            player.data = data
+        }
+    })
 var loaded = 0
 floorimg.onload = function(){
     loaded += 1
@@ -145,7 +144,6 @@ function update(){
     ctx.fillRect(0,0,1800,960)
     angle = Math.atan2(mouseY-480, mouseX-900) - Math.atan2(0, 0);
     player.dir = angle + Math.PI/2;
-    console.log(player.dir)
     if (pressedkeys.length > 0){
         player.moving = true
     }else{
