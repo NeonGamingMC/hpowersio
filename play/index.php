@@ -12,6 +12,7 @@
     <img src="../images/player.png" alt="plr" style="display:none;" id="plrimg">
     <canvas id="game" width="1800" height="960"></canvas>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="abbreviate-num.js"></script>
     <script src="index.js"></script>
 </body>
 </html>

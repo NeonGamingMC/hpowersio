@@ -118,12 +118,15 @@ var player = {
         data:{
             fromGame: true
         },
-        dataType: 'text',
         success: function(data){
-            console.log(data)
-            player.data = data
+            player.data = data.split(",")
+            for(let i=0;i<player.data.length;i++){
+                player.data[i] *= 1
+            }
+            console.log(player.data)
         }
     })
+    
 var loaded = 0
 floorimg.onload = function(){
     loaded += 1
@@ -140,6 +143,8 @@ can.onmousemove = function(e){
 setInterval(update,16)
 
 function update(){
+    player.data[0] += 1e306
+    console.log(abbreviateNumber(player.data[0]))
     ctx.fillStyle = "rgba(0,0,0,1)"
     ctx.fillRect(0,0,1800,960)
     angle = Math.atan2(mouseY-480, mouseX-900) - Math.atan2(0, 0);
@@ -195,6 +200,14 @@ function update(){
     ctx.strokeStyle = "rgba(255,255,255,1)"
     ctx.stroke()
     ctx.closePath()
+    ctx.strokeStyle = "rgba(0,0,0,1)"
+    ctx.fillStyle = "rgba(127,127,127,0.5)"
+    ctx.fillRect(0,240,200,480)
+    ctx.strokeRect(0,240,200,480)
+    ctx.fillStyle = "rgba(255,255,255,1)"
+    ctx.textAlign = "center"
+    ctx.font = String(128/Math.floor(Math.log10(player.data[0]+1)/2+2))+"px sans-serif"
+    ctx.fillText(String(player.data[0])+" H",100,250)
 }
 
 function keyd(e){

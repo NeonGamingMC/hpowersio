@@ -8,5 +8,5 @@
         $data = mysqli_query($link,"SELECT `data` FROM `plrdata` WHERE `plrdata`.`id` = '$getid[dataid]'");
         $data = mysqli_fetch_array($data)["data"];
         $data = base64_decode($data);
-        print_r((array)json_decode($data));
+        echo implode(",",json_decode($data,true));
     //}
